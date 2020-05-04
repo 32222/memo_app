@@ -6,7 +6,7 @@ export const state = () => ({
 export const mutations = {
   insert: function(state, obj) {
     const d = new Date();
-    var fmt =
+    const fmt =
       d.getFullYear() +
       "-" +
       (d.getMonth() + 1) +
@@ -26,7 +26,6 @@ export const mutations = {
     state.page = p;
   },
   remove: function(state, obj) {
-    var num = 0;
     for (let i = 0; i < state.memo.length; i++) {
       const ob = state.memo[i];
       if (
