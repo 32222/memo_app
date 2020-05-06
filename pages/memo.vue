@@ -5,14 +5,27 @@
       <tr>
         <th>Title</th>
         <td>
-          <input type="text" name="title" class="title" size="40" v-model="title" @focus="set_flg" />
+          <input
+            type="text"
+            name="title"
+            class="title"
+            size="40"
+            v-model="title"
+            @focus="set_flg"
+          />
           <button @click="find">find</button>
         </td>
       </tr>
       <tr>
         <th>Memo</th>
         <td>
-          <textarea name="content" class="content" cols="50" rows="5" v-model="content"></textarea>
+          <textarea
+            name="content"
+            class="content"
+            cols="50"
+            rows="5"
+            v-model="content"
+          ></textarea>
         </td>
       </tr>
       <tr>
@@ -20,15 +33,16 @@
         <td>
           <button @click="insert">save</button>
           <transition name="del">
-            <button v-if="set_flg != false" @click="remove">delete</button>
+            <button v-if="sel_flg != false" @click="remove">delete</button>
           </transition>
         </td>
       </tr>
     </table>
+
     <hr />
     <ul class="list">
       <li v-for="(item, index) in page_items" v-bind:key="index">
-        <span @click="select(item)">{{item.title}}({{item.created}})</span>
+        <span @click="select(item)">{{ item.title }}({{ item.created }})</span>
       </li>
     </ul>
     <hr />
@@ -57,7 +71,7 @@ export default {
     page_items: function() {
       if (this.find_flg) {
         var arr = [];
-        var data = this.$store.memo.memo;
+        var data = this.$store.state.memo.memo;
         data.forEach(element => {
           if (
             element.title.toLowerCase().indexOf(this.title.toLowerCase() >= 0)
@@ -138,3 +152,72 @@ export default {
   }
 };
 </script>
+<style scoped>
+.container {
+  padding: 5px 10px;
+}
+h1 {
+  font-size: 60pt;
+  color: #345980;
+}
+p {
+  padding-top: 5px;
+  font-size: 20pt;
+}
+div {
+  font-size: 14pt;
+}
+pre {
+  padding: 10px;
+  font-size: 18pt;
+  background-color: #efefef;
+}
+input {
+  font-size: 14pt;
+  margin: 5px;
+}
+textarea {
+  font-size: 14px;
+  margin: 5px;
+}
+button {
+  font-size: 14px;
+  padding: 1px 10px;
+  margin: 5px;
+}
+hr {
+  border-style: none;
+  border-top: solid;
+  border-width: 5px;
+  border-color: #def;
+  margin: 20px 0px 10px 0px;
+}
+li {
+  font-size: 14pt;
+  height: 32px;
+}
+th {
+  background-color: #345980;
+  color: white;
+}
+td {
+  background-color: aliceblue;
+  color: #345980;
+  padding: 5px;
+}
+.nav {
+  padding: 0px 10px;
+  cursor: pointer;
+}
+.list {
+  cursor: pointer;
+}
+.del-enter-active,
+.del-leave-active {
+  transition: opacity 0.5s;
+}
+.del-enter,
+.del-leave-to {
+  opacity: 0;
+}
+</style>
